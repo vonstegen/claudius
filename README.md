@@ -7,7 +7,7 @@ Claudius is a standalone, self-hosted AI agent system that wraps Claude Code in 
 ## What Claudius Does
 
 - **Always-on daemon** — Runs 24/7 on a dedicated machine (Lumen), auto-restarts on crash
-- **Messaging bridge** — Command Claudius from Telegram, Slack, or Discord from anywhere
+- **Messaging bridge** — Command Claudius from Slack, Telegram, or Discord from anywhere
 - **Proactive heartbeat** — Cron-based scheduling for recurring tasks (inbox triage, system health checks, daily reports)
 - **Skills system** — Markdown playbooks in `skills/` that Claudius follows natively
 - **Persistent memory** — File-based + SQLite memory that survives restarts and sessions
@@ -54,7 +54,7 @@ But Claudius is general-purpose — it can be configured for any long-running AI
 - Python 3.11+
 - Claude Code CLI installed and authenticated (`claude --version`)
 - Docker (for containerized deployment)
-- Telegram Bot Token (for messaging bridge)
+- Slack Bot + App Tokens (for messaging bridge)
 
 ### Local Development
 ```bash

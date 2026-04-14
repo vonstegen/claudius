@@ -83,16 +83,16 @@ class ClaudiusDaemon:
 
         # Start messaging bridges
         bridges_config = self.config.get("bridges", {})
-        if bridges_config.get("telegram", {}).get("enabled", False):
-            from src.bridge.telegram import TelegramBridge
+        if bridges_config.get("slack", {}).get("enabled", False):
+            from src.bridge.slack import SlackBridge
 
-            bridge = TelegramBridge(
+            bridge = SlackBridge(
                 config=bridges_config["telegram"],
                 router=self.components["router"],
             )
-            self.components["telegram_bridge"] = bridge
+            self.components["slack_bridge"] = bridge
             asyncio.create_task(bridge.start())
-            logger.info("  ✓ Telegram bridge started")
+            logger.info("  ✓ Slack bridge started")
 
         self.running = True
         logger.info("🏛️  Claudius is operational")

@@ -3,22 +3,22 @@
 
 claude_code:
   workspace: ~/claudius
-  model: opus          # opus or sonnet
-  headless: true       # Run Claude Code in non-interactive mode
+  model: opus
+  headless: true
   max_retries: 3
-  session_timeout: 3600  # seconds before session recycle
+  session_timeout: 3600
 
 bridges:
-  telegram:
-    enabled: true
-    bot_token: ${TELEGRAM_BOT_TOKEN}
-    allowed_users:
-      - ${TELEGRAM_ALLOWED_USERS}
-    parse_mode: markdown
   slack:
+    enabled: true
+    bot_token: ${SLACK_BOT_TOKEN}
+    app_token: ${SLACK_APP_TOKEN}
+    allowed_users:
+      - ${SLACK_ALLOWED_USERS}
+    allowed_channels:
+      - ${SLACK_ALLOWED_CHANNELS}
+  telegram:
     enabled: false
-    # bot_token: ${SLACK_BOT_TOKEN}
-    # channel: claudius-bridge
 
 scheduler:
   enabled: true
@@ -26,15 +26,15 @@ scheduler:
   jobs:
     - name: health-check
       skill: system-health
-      cron: "*/30 * * * *"    # Every 30 minutes
+      cron: "*/30 * * * *"
       enabled: true
     - name: daily-report
       skill: daily-report
-      cron: "0 8 * * 1-5"    # 8 AM weekdays
+      cron: "0 8 * * 1-5"
       enabled: true
     - name: market-prep
       skill: market-prep
-      cron: "0 17 * * 0"     # 5 PM Sunday (before market open)
+      cron: "0 17 * * 0"
       enabled: false
 
 memory:
@@ -47,14 +47,14 @@ memory:
 
 skills:
   path: skills/
-  auto_reload: true          # Watch for changes and reload
+  auto_reload: true
 
 triune_brain:
   enabled: true
   vigil:
     host: gx10-b71c
     ollama_port: 11434
-    ssh_user: ""              # Uses default SSH config
+    ssh_user: ""
   lumen:
     host: desktop-rssp6ga-1
     ssh_user: ""
@@ -69,5 +69,5 @@ daemon:
   log_file: logs/claudius.log
   watchdog:
     enabled: true
-    restart_delay: 5          # seconds before restart on crash
-    max_restarts: 10          # per hour
+    restart_delay: 5
+    max_restarts: 10
