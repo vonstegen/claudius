@@ -1,0 +1,37 @@
+# Environment
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Config (contains secrets)
+config/config.yaml
+
+# Memory (local state, not shared)
+memory/claudius.db
+memory/conversations/
+memory/MEMORY.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-data/
+
+# Logs
+logs/
+*.log
+
+# Build
+dist/
+build/
+*.egg-info/

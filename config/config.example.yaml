@@ -1,0 +1,73 @@
+# Claudius Configuration
+# Copy to config.yaml and customize
+
+claude_code:
+  workspace: ~/claudius
+  model: opus          # opus or sonnet
+  headless: true       # Run Claude Code in non-interactive mode
+  max_retries: 3
+  session_timeout: 3600  # seconds before session recycle
+
+bridges:
+  telegram:
+    enabled: true
+    bot_token: ${TELEGRAM_BOT_TOKEN}
+    allowed_users:
+      - ${TELEGRAM_ALLOWED_USERS}
+    parse_mode: markdown
+  slack:
+    enabled: false
+    # bot_token: ${SLACK_BOT_TOKEN}
+    # channel: claudius-bridge
+
+scheduler:
+  enabled: true
+  timezone: America/New_York
+  jobs:
+    - name: health-check
+      skill: system-health
+      cron: "*/30 * * * *"    # Every 30 minutes
+      enabled: true
+    - name: daily-report
+      skill: daily-report
+      cron: "0 8 * * 1-5"    # 8 AM weekdays
+      enabled: true
+    - name: market-prep
+      skill: market-prep
+      cron: "0 17 * * 0"     # 5 PM Sunday (before market open)
+      enabled: false
+
+memory:
+  backend: sqlite
+  db_path: memory/claudius.db
+  markdown_path: memory/MEMORY.md
+  max_context_tokens: 50000
+  conversation_log: true
+  conversation_path: memory/conversations/
+
+skills:
+  path: skills/
+  auto_reload: true          # Watch for changes and reload
+
+triune_brain:
+  enabled: true
+  vigil:
+    host: gx10-b71c
+    ollama_port: 11434
+    ssh_user: ""              # Uses default SSH config
+  lumen:
+    host: desktop-rssp6ga-1
+    ssh_user: ""
+  echelon:
+    host: avs-dellxps
+    ssh_user: ""
+  forex_agent_repo: ~/forex-agent
+
+daemon:
+  pid_file: /tmp/claudius.pid
+  log_level: INFO
+  log_file: logs/claudius.log
+  watchdog:
+    enabled: true
+    restart_delay: 5          # seconds before restart on crash
+    max_restarts: 10          # per hour
