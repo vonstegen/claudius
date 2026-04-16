@@ -87,7 +87,7 @@ class ClaudiusDaemon:
             from src.bridge.slack import SlackBridge
 
             bridge = SlackBridge(
-                config=bridges_config["telegram"],
+                config=bridges_config["slack"],
                 router=self.components["router"],
             )
             self.components["slack_bridge"] = bridge
